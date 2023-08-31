@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <!--Tiempo en horas de ejecucion de la app-->
+    <Tiempo>24</Tiempo>
+    <!--Tiempo de espera (segundos) entre cada peticion-->
+    <Sleep>5</Sleep>
+    <!--IP a monitorizar-->
+    <Dispositivo>127.0.0.1</Dispositivo>
+</config>
