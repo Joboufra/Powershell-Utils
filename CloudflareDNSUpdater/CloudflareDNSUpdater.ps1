@@ -2,14 +2,17 @@
 
 function Send-ntfy{
     param (
-        [string]$m
+        [string]$m,
+        [string]$p = 'default',
+        [string]$tags = ''
     )
         $msgNTFY = @{
         Method = "POST"
         URI = "https://ntfy.joboufra.es/joboufra"
         Headers = @{
+            Tags = "$tags"
             Title = "joboufra - DNSupdater"
-            Priority = "default"
+            Priority = "$p"
             Authorization = "Bearer $ntfyTk"
         }
         Body = $m
@@ -56,14 +59,14 @@ foreach ($registro in $registros) {
           }
         $resultadoUpdateDNS = Invoke-RestMethod @updateDNS
         if ($resultadoUpdateDNS.success -ne "True") {
-            Write-Output "ERROR ==> $nombreRegistro - Fallo al actualziar" 
-            Write-Host @updateDNS
+            Write-Output "ERROR ==> $nombreRegistro - Fallo al actualizar"
+            Send-ntfy -m "El registro DNS de $nombreRegistro no se ha podido actualizar $ipActual"  -p high -tags rotating_light
           }
-          Write-Output "==> $nombreRegistro DNS Record se actualiza a: $ipActual"
-          
-          Send-ntfy -m "El registro DNS de $nombreRegistro se actualiza a: $ipActual"
+          Write-Output "==> $nombreRegistro DNS Record se actualiza a: $ipActual" 
+          Send-ntfy -m "El registro DNS de $nombreRegistro se actualiza a: $ipActual" -tags heavy_check_mark
     }
     else {
         Write-Host "==> Las ips coinciden, $nombreRegistro no se actualiza"
+        Send-ntfy -m "Las ips coinciden, el registro DNS de $nombreRegistro no se actualiza"
     }
 }
