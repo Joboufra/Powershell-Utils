@@ -41,7 +41,7 @@ foreach ($registro in $registros) {
     $nombreRegistro = $registro.name
     $cloudflareIP = $registro.content
 
-    if ($0 -ne $cloudflareIP) {
+    if ($ipActual -ne $cloudflareIP) {
         $updateDNS = @{
             Uri     = "https://api.cloudflare.com/client/v4/zones/$idZona/dns_records/$idRegistro"
             Method  = 'PUT'
