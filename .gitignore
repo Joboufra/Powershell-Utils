@@ -4,4 +4,4 @@
 #Ignora los archivos relacionados a API keys
 *.crd
 .env
-
+CloudflareDNSUpdater/config.xml
